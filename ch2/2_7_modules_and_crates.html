@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html lang="en" class="dark" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Modules and crates - Rust for C-Programmers</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "dark";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('dark')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../ch1/chapter_1_rust_for_c_programmers.html"><strong aria-hidden="true">1.</strong> Rust for C programmers</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch1/1_1_why_rust.html"><strong aria-hidden="true">1.1.</strong> Why Rust</a></li><li class="chapter-item expanded "><a href="../ch1/1_2_what_makes_rust_special.html"><strong aria-hidden="true">1.2.</strong> What makes Rust special</a></li><li class="chapter-item expanded "><a href="../ch1/1_3_about_the_book.html"><strong aria-hidden="true">1.3.</strong> About the book</a></li><li class="chapter-item expanded "><a href="../ch1/1_4_about_the_authors.html"><strong aria-hidden="true">1.4.</strong> About the authors</a></li></ol></li><li class="chapter-item expanded "><a href="../ch2/chapter_2_the_basic_structure_of_a_rust_program.html"><strong aria-hidden="true">2.</strong> The basic tructure of a Rust program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch2/2_1_compiled_language_and_build_system.html"><strong aria-hidden="true">2.1.</strong> The build system</a></li><li class="chapter-item expanded "><a href="../ch2/2_2_the_main_function_entry_point_of_execution.html"><strong aria-hidden="true">2.2.</strong> The main function</a></li><li class="chapter-item expanded "><a href="../ch2/2_3_variables_and_mutability.html"><strong aria-hidden="true">2.3.</strong> Variables and mutability</a></li><li class="chapter-item expanded "><a href="../ch2/2_4_data_types_and_type_annotations.html"><strong aria-hidden="true">2.4.</strong> Data types</a></li><li class="chapter-item expanded "><a href="../ch2/2_5_constants_and_statics.html"><strong aria-hidden="true">2.5.</strong> Constants and statics</a></li><li class="chapter-item expanded "><a href="../ch2/2_6_functions_and_control_flow.html"><strong aria-hidden="true">2.6.</strong> Functions and control flow</a></li><li class="chapter-item expanded "><a href="../ch2/2_7_modules_and_crates.html" class="active"><strong aria-hidden="true">2.7.</strong> Modules and crates</a></li><li class="chapter-item expanded "><a href="../ch2/2_8_use_statements_and_namespacing.html"><strong aria-hidden="true">2.8.</strong> Use statements and namespacing</a></li><li class="chapter-item expanded "><a href="../ch2/2_9_traits_and_implementations.html"><strong aria-hidden="true">2.9.</strong> Traits and implementations</a></li><li class="chapter-item expanded "><a href="../ch2/2_10_macros.html"><strong aria-hidden="true">2.10.</strong> Macros</a></li><li class="chapter-item expanded "><a href="../ch2/2_11_error_handling.html"><strong aria-hidden="true">2.11.</strong> Error handling</a></li><li class="chapter-item expanded "><a href="../ch2/2_12_memory_safety_and_ownership.html"><strong aria-hidden="true">2.12.</strong> Memory safety and ownership</a></li><li class="chapter-item expanded "><a href="../ch2/2_13_syntax_structures_expressions_and_statements.html"><strong aria-hidden="true">2.13.</strong> Expressions_and_Statements</a></li><li class="chapter-item expanded "><a href="../ch2/2_14_code_conventions_and_style.html"><strong aria-hidden="true">2.14.</strong> Code conventions and style</a></li><li class="chapter-item expanded "><a href="../ch2/2_15_comments_and_documentation.html"><strong aria-hidden="true">2.15.</strong> Comments and documentation</a></li><li class="chapter-item expanded "><a href="../ch2/2_16_additional_topics.html"><strong aria-hidden="true">2.16.</strong> Additional topics</a></li><li class="chapter-item expanded "><a href="../ch2/2_17_summary.html"><strong aria-hidden="true">2.17.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch2/2_18_closing_thoughts.html"><strong aria-hidden="true">2.18.</strong> Closing thoughts</a></li></ol></li><li class="chapter-item expanded "><a href="../ch3/chapter_3_installing_rust.html"><strong aria-hidden="true">3.</strong> Installing Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch3/3_1_linux_users.html"><strong aria-hidden="true">3.1.</strong> For Linux users</a></li><li class="chapter-item expanded "><a href="../ch3/3_2_experimenting_with_rust_in_the_playground.html"><strong aria-hidden="true">3.2.</strong> Experimenting in the playground</a></li></ol></li><li class="chapter-item expanded "><a href="../ch4/chapter_4_rustc_and_cargo.html"><strong aria-hidden="true">4.</strong> Rustc and Cargo</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch4/4_1_compiling_with_rustc.html"><strong aria-hidden="true">4.1.</strong> Compiling with Rustc</a></li><li class="chapter-item expanded "><a href="../ch4/4_2_introduction_to_cargo.html"><strong aria-hidden="true">4.2.</strong> Introduction to Cargo</a></li><li class="chapter-item expanded "><a href="../ch4/4_3_further_resources.html"><strong aria-hidden="true">4.3.</strong> Further resources</a></li></ol></li><li class="chapter-item expanded "><a href="../ch5/chapter_5_common_programming_concepts.html"><strong aria-hidden="true">5.</strong> common_programming_concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch5/5_1_keywords.html"><strong aria-hidden="true">5.1.</strong> Keywords</a></li><li class="chapter-item expanded "><a href="../ch5/5_2_expressions_and_statements.html"><strong aria-hidden="true">5.2.</strong> Expressions and statements</a></li><li class="chapter-item expanded "><a href="../ch5/5_3_data_types.html"><strong aria-hidden="true">5.3.</strong> Data types</a></li><li class="chapter-item expanded "><a href="../ch5/5_4_variables_and_mutability.html"><strong aria-hidden="true">5.4.</strong> Variables and mutability</a></li><li class="chapter-item expanded "><a href="../ch5/5_5_operators.html"><strong aria-hidden="true">5.5.</strong> Operators</a></li><li class="chapter-item expanded "><a href="../ch5/5_6_numeric_literals_and_their_default_type.html"><strong aria-hidden="true">5.6.</strong> Numeric literals and their type</a></li><li class="chapter-item expanded "><a href="../ch5/5_7_overflow_for_arithmetic_operations.html"><strong aria-hidden="true">5.7.</strong> Overflow for arithmetic operations</a></li><li class="chapter-item expanded "><a href="../ch5/5_8_performance_considerations_for_numeric_types.html"><strong aria-hidden="true">5.8.</strong> Performance for numeric types</a></li><li class="chapter-item expanded "><a href="../ch5/5_9_comments_in_rust.html"><strong aria-hidden="true">5.9.</strong> Comments in Rust</a></li><li class="chapter-item expanded "><a href="../ch5/5_10_summary.html"><strong aria-hidden="true">5.10.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch5/5_11_closing_thoughts.html"><strong aria-hidden="true">5.11.</strong> Closing thoughts</a></li></ol></li><li class="chapter-item expanded "><a href="../ch6/chapter_6_ownership_and_memory_management_in_rust.html"><strong aria-hidden="true">6.</strong> Ownership and memory management</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch6/6_1_overview_of_ownership.html"><strong aria-hidden="true">6.1.</strong> Overview of ownership</a></li><li class="chapter-item expanded "><a href="../ch6/6_2_move_semantics_cloning_and_copying.html"><strong aria-hidden="true">6.2.</strong> Moves, cloning, and copying</a></li><li class="chapter-item expanded "><a href="../ch6/6_3_borrowing_and_references.html"><strong aria-hidden="true">6.3.</strong> Borrowing and references</a></li><li class="chapter-item expanded "><a href="../ch6/6_4_the_string_type_and_memory_allocation.html"><strong aria-hidden="true">6.4.</strong> The string type</a></li><li class="chapter-item expanded "><a href="../ch6/6_5_slices_borrowing_portions_of_data.html"><strong aria-hidden="true">6.5.</strong> Slices -- borrowing subranges</a></li><li class="chapter-item expanded "><a href="../ch6/6_6_lifetimes_ensuring_valid_references.html"><strong aria-hidden="true">6.6.</strong> Lifetimes of references</a></li><li class="chapter-item expanded "><a href="../ch6/6_7_smart_pointers_and_heap_allocation.html"><strong aria-hidden="true">6.7.</strong> Smart pointers</a></li><li class="chapter-item expanded "><a href="../ch6/6_8_unsafe_rust_and_interoperability_with_c.html"><strong aria-hidden="true">6.8.</strong> Unsafe Rust</a></li><li class="chapter-item expanded "><a href="../ch6/6_9_comparison_with_c_memory_management.html"><strong aria-hidden="true">6.9.</strong> Comparison with C</a></li><li class="chapter-item expanded "><a href="../ch6/6_10_summary.html"><strong aria-hidden="true">6.10.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch6/6_11_closing_thoughts.html"><strong aria-hidden="true">6.11.</strong> Closing thoughts</a></li></ol></li><li class="chapter-item expanded "><a href="../ch7/chapter_7_control_flow_in_rust.html"><strong aria-hidden="true">7.</strong> Control flow</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch7/7_1_conditional_statements.html"><strong aria-hidden="true">7.1.</strong> Conditional statements</a></li><li class="chapter-item expanded "><a href="../ch7/7_2_loops.html"><strong aria-hidden="true">7.2.</strong> Loops</a></li><li class="chapter-item expanded "><a href="../ch7/7_3_key_differences_between_rust_and_c_control_flow.html"><strong aria-hidden="true">7.3.</strong> Control flow in Rust and C</a></li><li class="chapter-item expanded "><a href="../ch7/7_4_summary.html"><strong aria-hidden="true">7.4.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch7/7_5_closing_thoughts.html"><strong aria-hidden="true">7.5.</strong> Closing_thoughts</a></li></ol></li><li class="chapter-item expanded "><a href="../ch8/chapter_8_functions_in_rust.html"><strong aria-hidden="true">8.</strong> Functions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch8/8_1_defining_and_calling_functions.html"><strong aria-hidden="true">8.1.</strong> Defining and calling functions</a></li><li class="chapter-item expanded "><a href="../ch8/8_2_the_main_function.html"><strong aria-hidden="true">8.2.</strong> The main function</a></li><li class="chapter-item expanded "><a href="../ch8/8_3_parameters_and_return_types.html"><strong aria-hidden="true">8.3.</strong> Parameters and return types</a></li><li class="chapter-item expanded "><a href="../ch8/8_4_default_parameter_values_and_named_arguments.html"><strong aria-hidden="true">8.4.</strong> Default and named arguments</a></li><li class="chapter-item expanded "><a href="../ch8/8_5_slices_as_parameters_and_return_types.html"><strong aria-hidden="true">8.5.</strong> Slices as parameters</a></li><li class="chapter-item expanded "><a href="../ch8/8_6_tuples_as_parameters_and_return_types.html"><strong aria-hidden="true">8.6.</strong> Tuples as parameters</a></li><li class="chapter-item expanded "><a href="../ch8/8_7_function_pointers_and_higher_order_functions.html"><strong aria-hidden="true">8.7.</strong> Function pointers</a></li><li class="chapter-item expanded "><a href="../ch8/8_8_nested_functions_and_scope.html"><strong aria-hidden="true">8.8.</strong> Nested functions and scope</a></li><li class="chapter-item expanded "><a href="../ch8/8_9_generics_in_functions.html"><strong aria-hidden="true">8.9.</strong> Generics in functions</a></li><li class="chapter-item expanded "><a href="../ch8/8_10_tail_call_optimization_and_recursion.html"><strong aria-hidden="true">8.10.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="../ch8/8_11_inlining_functions.html"><strong aria-hidden="true">8.11.</strong> Inlining functions</a></li><li class="chapter-item expanded "><a href="../ch8/8_12_method_syntax_and_associated_functions.html"><strong aria-hidden="true">8.12.</strong> Method call syntax</a></li><li class="chapter-item expanded "><a href="../ch8/8_13_function_overloading.html"><strong aria-hidden="true">8.13.</strong> Function overloading</a></li><li class="chapter-item expanded "><a href="../ch8/8_14_type_inference_for_function_return_types.html"><strong aria-hidden="true">8.14.</strong> Type inference for return types</a></li><li class="chapter-item expanded "><a href="../ch8/8_15_variadic_functions_and_macros.html"><strong aria-hidden="true">8.15.</strong> Variadic functions and macros</a></li><li class="chapter-item expanded "><a href="../ch8/8_16_summary.html"><strong aria-hidden="true">8.16.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch8/8_17_exercises.html"><strong aria-hidden="true">8.17.</strong> Exercises</a></li><li class="chapter-item expanded "><a href="../ch8/8_18_closing_thoughts.html"><strong aria-hidden="true">8.18.</strong> Closing thoughts</a></li></ol></li><li class="chapter-item expanded "><a href="../ch9/chapter_9_structs_in_rust.html"><strong aria-hidden="true">9.</strong> Structs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ch9/9_1_defining_structs.html"><strong aria-hidden="true">9.1.</strong> Defining structs</a></li><li class="chapter-item expanded "><a href="../ch9/9_2_instantiating_and_using_structs.html"><strong aria-hidden="true">9.2.</strong> Instantiating structs</a></li><li class="chapter-item expanded "><a href="../ch9/9_3_updating_struct_instances.html"><strong aria-hidden="true">9.3.</strong> Updating struct instances</a></li><li class="chapter-item expanded "><a href="../ch9/9_4_tuple_structs.html"><strong aria-hidden="true">9.4.</strong> Tuple structs</a></li><li class="chapter-item expanded "><a href="../ch9/9_5_unit_like_structs.html"><strong aria-hidden="true">9.5.</strong> Unit like structs</a></li><li class="chapter-item expanded "><a href="../ch9/9_6_methods_and_associated_functions.html"><strong aria-hidden="true">9.6.</strong> Methods, associated functions</a></li><li class="chapter-item expanded "><a href="../ch9/9_7_the_self_parameter.html"><strong aria-hidden="true">9.7.</strong> The self parameter</a></li><li class="chapter-item expanded "><a href="../ch9/9_8_getters_and_setters.html"><strong aria-hidden="true">9.8.</strong> Getters and setters</a></li><li class="chapter-item expanded "><a href="../ch9/9_9_structs_and_ownership.html"><strong aria-hidden="true">9.9.</strong> Structs and ownership</a></li><li class="chapter-item expanded "><a href="../ch9/9_10_structs_with_references_and_lifetimes.html"><strong aria-hidden="true">9.10.</strong> References and lifetimes</a></li><li class="chapter-item expanded "><a href="../ch9/9_11_generic_structs.html"><strong aria-hidden="true">9.11.</strong> Generic structs</a></li><li class="chapter-item expanded "><a href="../ch9/9_12_comparing_rust_structs_with_oop_concepts.html"><strong aria-hidden="true">9.12.</strong> Rust structs  versus classes</a></li><li class="chapter-item expanded "><a href="../ch9/9_13_derived_traits.html"><strong aria-hidden="true">9.13.</strong> Derived traits</a></li><li class="chapter-item expanded "><a href="../ch9/9_14_additional_topics.html"><strong aria-hidden="true">9.14.</strong> Additional topics</a></li><li class="chapter-item expanded "><a href="../ch9/9_15_exercises.html"><strong aria-hidden="true">9.15.</strong> Exercises</a></li><li class="chapter-item expanded "><a href="../ch9/9_16_.html"><strong aria-hidden="true">9.16.</strong> Summary</a></li><li class="chapter-item expanded "><a href="../ch9/9_17_closing_thoughts.html"><strong aria-hidden="true">9.17.</strong> Closing thoughts</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust for C-Programmers</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="27-modules-and-crates"><a class="header" href="#27-modules-and-crates">2.7 Modules and Crates</a></h2>
+<h3 id="271-modules"><a class="header" href="#271-modules">2.7.1 Modules</a></h3>
+<p>Rust uses modules to organize code, replacing the header-file system in C.</p>
+<h4 id="defining-modules"><a class="header" href="#defining-modules">Defining Modules</a></h4>
+<pre><code class="language-rust ignore">mod my_module {
+    pub fn my_function() {
+        println!("This is my function");
+    }
+}</code></pre>
+<ul>
+<li>Use <code>mod</code> to define a module.</li>
+<li>Use <code>pub</code> to make items public.</li>
+</ul>
+<h4 id="using-modules"><a class="header" href="#using-modules">Using Modules</a></h4>
+<pre><pre class="playground"><code class="language-rust editable">mod my_module {
+    pub fn my_function() {
+        println!("This is my function");
+    }
+}
+
+fn main() {
+    my_module::my_function();
+}</code></pre></pre>
+<h3 id="272-splitting-modules-across-files"><a class="header" href="#272-splitting-modules-across-files">2.7.2 Splitting Modules Across Files</a></h3>
+<ul>
+<li>Create a file named <code>my_module.rs</code>.</li>
+<li>In your main file, declare:</li>
+</ul>
+<pre><code class="language-rust ignore">mod my_module;</code></pre>
+<p>Now, <code>my_module</code> is available in your code.</p>
+<h3 id="273-crates"><a class="header" href="#273-crates">2.7.3 Crates</a></h3>
+<ul>
+<li>A <strong>crate</strong> is a compilation unit in Rust (like a library or executable).</li>
+<li>Crates can be binary (with a <code>main</code> function) or library crates.</li>
+</ul>
+<h3 id="274-comparison-with-c"><a class="header" href="#274-comparison-with-c">2.7.4 Comparison with C</a></h3>
+<ul>
+<li>C uses header files (<code>.h</code>) and source files (<code>.c</code>).</li>
+<li>Headers declare functions and variables; source files define them.</li>
+</ul>
+<pre><code class="language-c">// my_module.h
+void my_function();
+
+// my_module.c
+#include "my_module.h"
+#include &lt;stdio.h&gt;
+
+void my_function() {
+    printf("This is my function\n");
+}
+
+// main.c
+#include "my_module.h"
+
+int main() {
+    my_function();
+    return 0;
+}
+</code></pre>
+<hr />
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ch2/2_6_functions_and_control_flow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../ch2/2_8_use_statements_and_namespacing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ch2/2_6_functions_and_control_flow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../ch2/2_8_use_statements_and_namespacing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,488 @@
+# Chapter 7: Control Flow in Rust
+
+Control flow is a fundamental aspect of programming—it enables decision-making, conditional execution, and repeating actions. For C programmers transitioning to Rust, understanding Rust's control flow mechanisms, and how they differ from C's, is essential.
+
+In this chapter, we'll examine Rust's control flow constructs and compare them to their counterparts in C, helping you build on your existing knowledge. We'll cover:
+
+- Conditional statements (`if`, `else if`, `else`)
+- Looping constructs (`loop`, `while`, `for`)
+- The `match` statement for pattern matching
+- Variable scope and shadowing
+
+We will delve into Rust's more advanced control flow features, which have no direct equivalent in older languages like C, in later chapters. These include:
+
+- Pattern matching with `match`
+- Error handling using `Result` and `Option`
+- The use of `if let` and `while let` for more concise control flow
+
+Unlike some languages, Rust avoids hidden control flow paths such as exception handling with `try/catch`. Instead, Rust uses the `Result` and `Option` types to handle errors in a more explicit and transparent way. We'll delve into these advanced control flow features, as well as `if let` and `while let`, in later chapters.
+
+---
+
+## 7.1 Conditional Statements
+
+Conditional statements allow your program to make decisions based on specific criteria. Rust's primary decision-making construct is the `if` statement, similar to C's, but with some key differences.
+
+### 7.1.1 Conditions Must Be Boolean
+
+In Rust, conditions in `if` statements must explicitly be of type `bool`. Unlike C, where any non-zero integer is considered `true`, Rust does not perform implicit conversions from integers or other types to `bool`.
+
+#### Comparison
+
+**C Code:**
+
+```c
+int number = 5;
+if (number) {
+    printf("Number is non-zero.\n");
+}
+```
+
+In C, `number` being non-zero evaluates to `true`.
+
+**Rust Equivalent:**
+
+```rust,editable
+fn main() {
+    let number = 5;
+    if number != 0 {
+        println!("Number is non-zero.");
+    }
+}
+```
+
+In Rust, you must explicitly compare `number` to zero to produce a `bool`.
+
+**Note:** Attempting to use a non-boolean condition in Rust will result in a compile-time error, making your code safer by preventing unintended truthy or falsy evaluations.
+
+### 7.1.2 The `if` Statement
+
+The `if` statement in Rust executes code based on a condition that evaluates to `true`.
+
+```rust,editable
+fn main() {
+    let number = 5;
+    if number > 0 {
+        println!("The number is positive.");
+    }
+}
+```
+
+**Key Points:**
+
+- **No Parentheses Required:** Parentheses around the condition are optional in Rust.
+- **Braces Are Required:** Even for single-line bodies, braces `{}` are required.
+
+#### Comparison with C
+
+**C Code:**
+
+```c
+int number = 5;
+if (number > 0) {
+    printf("The number is positive.\n");
+}
+```
+
+In C, parentheses around the condition are required, but braces are optional for single statements.
+
+### 7.1.3 `else if` and `else`
+
+You can extend `if` statements with `else if` and `else` clauses to handle multiple conditions.
+
+```rust,editable
+fn main() {
+    let number = 0;
+    if number > 0 {
+        println!("The number is positive.");
+    } else if number < 0 {
+        println!("The number is negative.");
+    } else {
+        println!("The number is zero.");
+    }
+}
+```
+
+**Key Points:**
+
+- **Conditions Checked Sequentially:** Conditions are evaluated from top to bottom.
+- **Exclusive Execution:** Only the first branch where the condition evaluates to `true` is executed. If none of the conditions are met, the optional `else` branch is executed.
+- **Syntax Simplicity:** No parentheses are needed around conditions, and Rust does not require `{}` between `else` and `if`.
+
+#### Comparison with C
+
+**C Code:**
+
+```c
+int number = 0;
+if (number > 0) {
+    printf("The number is positive.\n");
+} else if (number < 0) {
+    printf("The number is negative.\n");
+} else {
+    printf("The number is zero.\n");
+}
+```
+
+**Note:** In C, both parentheses around conditions and braces for code blocks are required by syntax rules.
+
+### 7.1.4 `if` as an Expression
+
+In Rust, `if` statements can be used as expressions that return values. This allows you to assign the result of an `if` expression to a variable.
+
+```rust,editable
+fn main() {
+    let condition = true;
+    let number = if condition { 10 } else { 20 };
+    println!("The number is: {}", number);
+}
+```
+
+**Key Points:**
+
+- **Expression-Based:** Both `if` and `else` branches must return values.
+- **Type Consistency:** All branches must return values of the same type.
+- **No Ternary Operator:** Rust uses `if` expressions instead of the ternary operator found in C.
+
+When using `if` as an expression to assign a value, Rust requires that all possible conditions are covered. This means that you must include an `else` clause. Without an `else` clause, the `if` expression might not return a value in some cases, leading to a compile-time error.
+
+#### Comparison with the Ternary Operator in C
+
+**C Code:**
+
+```c
+int condition = 1; // true
+int number = condition ? 10 : 20;
+printf("The number is: %d\n", number);
+```
+
+### 7.1.5 Type Consistency in `if` Expressions
+
+All branches of an `if` expression must return values of the same type.
+
+```rust,editable
+fn main() {
+    let condition = true;
+    let number = if condition {
+        5
+    } else {
+        "six" // Error: mismatched types
+    };
+}
+```
+
+**Error:**
+
+```
+error[E0308]: if and else have incompatible types
+```
+
+**Explanation:** The `if` branch returns an `i32`, but the `else` branch returns a `&str`. Rust's type system enforces consistency to prevent runtime errors.
+
+### 7.1.6 The `match` Statement
+
+Rust's `match` statement is a powerful control flow construct for pattern matching. It is more versatile than C's `switch` statement.
+
+```rust,editable
+fn main() {
+    let number = 2;
+    match number {
+        1 => println!("One"),
+        2 => println!("Two"),
+        3 => println!("Three"),
+        _ => println!("Other"),
+    }
+}
+```
+
+**Key Points:**
+
+- **Patterns:** `match` can handle a wide range of patterns.
+- **Exhaustiveness Checking:** The compiler ensures all possible cases are covered.
+- **Wildcard Pattern `_`:** Acts as a catch-all, similar to `default` in C.
+
+#### Comparison with C's `switch`
+
+**C Code:**
+
+```c
+int number = 2;
+switch (number) {
+    case 1:
+        printf("One\n");
+        break;
+    case 2:
+        printf("Two\n");
+        break;
+    default:
+        printf("Other\n");
+        break;
+}
+```
+
+**Advantages of Rust's `match`:**
+
+- **No Fall-Through:** Each arm is independent; there's no implicit fall-through.
+- **Pattern Matching:** Can match on more complex patterns, including ranges and destructured data.
+
+We will explore Rust's powerful pattern matching and the `match` statement in full detail in a later chapter.
+
+---
+
+## 7.2 Loops
+
+Loops allow you to execute a block of code repeatedly. Rust provides several looping constructs, some of which differ significantly from those in C.
+
+### 7.2.1 The `loop` Construct
+
+The `loop` construct creates an infinite loop unless explicitly broken out of.
+
+```rust,editable
+fn main() {
+    let mut count = 0;
+    loop {
+        println!("Count is: {}", count);
+        count += 1;
+        if count == 5 {
+            break;
+        }
+    }
+}
+```
+
+**Key Points:**
+
+- **Infinite Loop:** Continues indefinitely unless `break` is used.
+- **Can Return Values:** Loops can return values using `break` with a value.
+
+#### Loops as Expressions
+
+Loops can return values when you use `break` with a value.
+
+```rust,editable
+fn main() {
+    let mut count = 0;
+    let result = loop {
+        count += 1;
+        if count == 10 {
+            break count * 2;
+        }
+    };
+    println!("The result is: {}", result);
+}
+```
+
+**Explanation:** When `count` reaches `10`, the loop breaks and returns `count * 2`, which is `20`. The value is assigned to `result`.
+
+### 7.2.2 The `while` Loop
+
+A `while` loop runs as long as a condition is `true`.
+
+```rust,editable
+fn main() {
+    let mut count = 0;
+    while count < 5 {
+        println!("Count is: {}", count);
+        count += 1;
+    }
+}
+```
+
+**Key Points:**
+
+- **Condition Checked Before Each Iteration:** If the condition is false initially, the loop body may not execute at all.
+- **Mutable Variables:** Often used with variables that need to be updated within the loop.
+
+#### Comparison with C
+
+**C Code:**
+
+```c
+int count = 0;
+while (count < 5) {
+    printf("Count is: %d\n", count);
+    count++;
+}
+```
+
+### 7.2.3 The `for` Loop
+
+Rust's `for` loop is used to iterate over collections or ranges. It differs from the traditional C-style `for` loop.
+
+#### Iterating Over Ranges
+
+```rust,editable
+fn main() {
+    for i in 0..5 {
+        println!("i is {}", i);
+    }
+}
+```
+
+**Key Points:**
+
+- **Range Syntax `start..end`:** Includes `start`, excludes `end`.
+- **Inclusive Range `..=`:** Use `start..=end` to include `end`.
+
+#### Iterating Over Collections
+
+```rust,editable
+fn main() {
+    let numbers = [10, 20, 30];
+    for number in numbers {
+        println!("Number is {}", number);
+    }
+}
+```
+
+**Explanation:** You can iterate directly over arrays and slices without needing to call `.iter()`.
+
+**Comparison with C's `for` Loop**
+
+**C Code:**
+
+```c
+for (int i = 0; i < 5; i++) {
+    printf("i is %d\n", i);
+}
+```
+
+**Note:** Rust does not have a traditional C-style `for` loop with initialization, condition, and increment expressions. Rust's `for` loop is more like a "for-each" loop, emphasizing safety and clarity.
+
+### 7.2.4 Labeled Breaks and Continues in Nested Loops
+
+In Rust, the `loop`, `while`, and `for` constructs can all use the `break` and `continue` keywords. The `continue` keyword skips the rest of the current loop iteration and jumps to the beginning of the loop. In the case of nested loops, labels can be used to specify which loop you want to break out of or continue.
+
+```rust,editable
+fn main() {
+    'outer: for i in 0..3 {
+        for j in 0..3 {
+            if i == j {
+                continue 'outer;
+            }
+            if i + j == 4 {
+                break 'outer;
+            }
+            println!("i = {}, j = {}", i, j);
+        }
+    }
+}
+```
+
+**Key Points:**
+
+- **Labels:** Defined using a single quote followed by a name (e.g., `'outer`).
+- **`break` and `continue` with Labels:** Control flow can break out of or continue specific loops.
+
+#### Comparison with C
+
+C does not have labeled `break` or `continue`. Similar behavior can be achieved using `goto`, but this is generally discouraged due to readability and maintainability concerns.
+
+---
+
+## 7.3 Variable Scope and Shadowing
+
+In Rust, variable scope is determined by where a variable is declared. Variables are valid from the point of declaration until the end of the enclosing block `{}`.
+
+### 7.3.1 Variable Scope
+
+```rust,editable
+fn main() {
+    let x = 5;
+    {
+        let y = 10;
+        println!("x = {}, y = {}", x, y); // x and y are accessible here
+    }
+    // println!("x = {}, y = {}", x, y); // Error: y is not in scope
+    println!("x = {}", x); // Only x is accessible here
+}
+```
+
+**Key Points:**
+
+- **Block Scope:** Variables declared within a block `{}` are not accessible outside of it.
+- **Lifetime Management:** Rust's ownership model works closely with scope to manage memory safely.
+
+### 7.3.2 Variable Shadowing
+
+Rust allows you to declare a new variable with the same name as a previous variable, effectively shadowing the original variable.
+
+```rust,editable
+fn main() {
+    let x = 5;
+    let x = x + 1; // Shadows the previous x
+    {
+        let x = x * 2; // Shadows the outer x within this block
+        println!("Inner x = {}", x); // Prints 12
+    }
+    println!("Outer x = {}", x); // Prints 6
+}
+```
+
+**Key Points:**
+
+- **Shadowing vs. Mutability:** Shadowing allows you to reassign variable names without making them mutable (`mut`).
+- **Type Changes:** Shadowing can also change the variable's type.
+
+---
+
+## 7.4 Key Differences Between Rust and C Control Flow
+
+- **Boolean Conditions:** Rust requires conditions to be `bool`.
+- **No Implicit Type Conversion:** Types are not implicitly converted in conditions.
+- **No Traditional `for` Loop:** Rust's `for` loop iterates over ranges or collections.
+- **No `do-while` Loop:** Rust doesn't have a `do-while` loop, but `loop` can be used to achieve similar behavior.
+- **Pattern Matching with `match`:** More powerful and safer than C's `switch`.
+- **No Implicit Fall-Through:** In `match` statements, each arm is independent.
+- **Error Handling Without Exceptions:** Rust uses `Result` and `Option` types for explicit error handling.
+- **Exhaustive `if` Expressions:** Must cover all possible conditions when used as expressions.
+- **Variable Scope:** Variables in Rust have stricter scoping rules, enhancing safety.
+- **No Implicit Variable Declaration:** Variables must be declared before use, preventing accidental usage of undeclared variables.
+
+---
+
+## 7.5 Summary
+
+In this chapter, we've explored:
+
+- **Conditional Statements:**
+  - Rust's `if`, `else if`, and `else` statements.
+  - The requirement for conditions to be `bool`.
+  - Using `if` as an expression to assign values.
+  - Type consistency in `if` expressions.
+- **The `match` Statement:**
+  - Pattern matching with `match`.
+  - Comparison with C's `switch` statement.
+- **Looping Constructs:**
+  - The `loop` construct for infinite loops.
+  - Returning values from loops using `break`.
+  - The `while` loop and its usage.
+  - The `for` loop for iterating over ranges and collections.
+  - Labeled `break` and `continue` in nested loops.
+- **Variable Scope and Shadowing:**
+  - Understanding variable scope in Rust.
+  - Variable shadowing and its use cases.
+- **Key Differences Between Rust and C:**
+  - Emphasizing Rust's stricter type and scoping rules.
+  - Highlighting the absence of certain constructs from C.
+
+Understanding control flow in Rust is crucial for writing effective and idiomatic Rust code. Rust's control flow constructs provide safety and clarity, helping you avoid common pitfalls found in other languages.
+
+---
+
+## 7.6 Closing Thoughts
+
+Rust's control flow mechanisms are designed with safety and expressiveness in mind. By enforcing strict type checks and preventing implicit conversions, Rust helps you catch errors at compile time rather than at runtime.
+
+As you continue your journey in Rust, remember to:
+
+- Embrace Rust's emphasis on explicitness and type safety.
+- Leverage the power of `match` for pattern matching and decision-making.
+- Understand the scope and lifetime of variables to write safe and efficient code.
+- Practice writing loops using Rust's constructs to become familiar with their nuances.
+
+In the next chapters, we'll delve deeper into Rust's advanced control flow features, including pattern matching with `match`, error handling using `Result` and `Option`, and the use of `if let` and `while let` for more concise control flow.
+
+Happy coding!
+
+---
